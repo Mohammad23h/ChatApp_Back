@@ -1,0 +1,17 @@
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\bin\Debug\net8.0\ChatApp.EF.deps.json
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\bin\Debug\net8.0\ChatApp.EF.runtimeconfig.json
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\bin\Debug\net8.0\ChatApp.EF.dll
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\bin\Debug\net8.0\ChatApp.EF.pdb
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.csproj.AssemblyReference.cache
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.AssemblyInfoInputs.cache
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.AssemblyInfo.cs
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.csproj.CoreCompileInputs.cache
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.dll
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\refint\ChatApp.EF.dll
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.pdb
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.genruntimeconfig.cache
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ref\ChatApp.EF.dll
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\bin\Debug\net8.0\ChatApp.Core.dll
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\bin\Debug\net8.0\ChatApp.Core.pdb
+C:\Users\mhammad\source\repos\ChatApp\ChatApp.EF\obj\Debug\net8.0\ChatApp.EF.csproj.Up2Date

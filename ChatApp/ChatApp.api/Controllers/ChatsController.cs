@@ -11,6 +11,7 @@ using PusherServer;
 using ChatApp.EF.Migrations;
 using System.Data.SqlTypes;
 using System;
+using Microsoft.AspNetCore.Authorization;
 //using System.Web.Mvc;
 
 
@@ -37,6 +38,17 @@ namespace ChatApp.Api.Controllers
                 //_unitOfWork.Chats.Find(b => b.ChatId == id, new[] {"chatUsers"} );
             return Ok(chat);
         }
+
+        [Authorize]
+        [HttpGet("GetName")]
+        public IActionResult GetName()
+        {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var name = User.Identity.Name;
+            return Ok(id + " " + name);
+        }
+
+
         [HttpGet("MessagesOfChat/{id}")]
         public async Task<IActionResult> GetMessages(int id)
         {
@@ -61,14 +73,15 @@ namespace ChatApp.Api.Controllers
             }
             
         }
-        
+        [Authorize]
         [HttpPost("InsertMessage")]
         public async Task<IActionResult> InsertMessage(dtoMessage dtomessage)
         {
+            var thisid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var chat = _unitOfWork.Chats.GetById(dtomessage.ChatId);
             var senderChat = _unitOfWork.ChatUsers.Find1(b =>
                 b.ChatId == dtomessage.ChatId &
-                b.UserId == dtomessage.SenderId);
+                b.UserId == thisid);
 
             if (chat == null)
                 return BadRequest(new { message = "ChatId is invalid" });
@@ -79,7 +92,7 @@ namespace ChatApp.Api.Controllers
             Message message = new()
             {
                 ChatId = dtomessage.ChatId,
-                SenderId = dtomessage.SenderId,
+                SenderId = thisid,
                 Content = dtomessage.Content
             };
             await _unitOfWork.Messages.InsertAsync(message);
@@ -112,10 +125,25 @@ namespace ChatApp.Api.Controllers
         {
             return Ok(_unitOfWork.Chats.GetAll());
         }
-        
-        [HttpGet("Find")]
-        public IActionResult GetByName(string name , string userId)
+
+        [HttpGet("GetMyChats")]
+        public IActionResult GetMyChats()
         {
+            var thisid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var chatUsers = _unitOfWork.ChatUsers.FindAll(b => b.UserId == thisid, new[]{"chat"});
+            var chats = new List<Chat>();
+            foreach (var chatuser in chatUsers)
+            {               
+                chats.Add(chatuser.chat);
+            }
+            return Ok(chats);
+        }
+
+        [Authorize]
+        [HttpGet("FindByName")]
+        public IActionResult GetByName(string name)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var chatuserfind = _unitOfWork.ChatUsers.FindAll(b => b.user.UserName.Contains(name) , new[] {"user"});
             var chatuserthis = _unitOfWork.ChatUsers.FindAll(b => b.UserId == userId);
             var goalchats = _unitOfWork.Chats.FindAll(b => 
@@ -129,18 +157,13 @@ namespace ChatApp.Api.Controllers
             //    b.chatUsers.Any(c => c.user.UserName.Contains(name)) & b.chatUsers.Any(z => z.UserId == userId), new[] { "Author" });
 
         }
-        
-        
-        /*
-        [HttpGet("GetAllWithAuthors")]
-        public IActionResult GetAllWithAuthors()
-        {
-            return Ok(_unitOfWork.chats.FindAll(b => b.Title.Contains("The"), new[] { "Author" }));
-        }
-        */
+
+
+        [Authorize]
         [HttpPost("Insert")]
         public async Task<IActionResult> Insert(dtoChat dtochat)
         {
+            var thisid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Chat chat = new()
             {
                 MaxUsers = dtochat.MaxUsers
@@ -154,11 +177,11 @@ namespace ChatApp.Api.Controllers
             dtoChatUser dto1 = new()
             {
                 ChatId = thischat.ChatId,
-                UserId = "09861034-b570-4301-b1bd-9dccecc0a16d"
+                UserId = thisid
             };
             var result1 = await InsertUser(dto1);
 
-
+            
             if (dtochat.UserId != null)
             {
                 dtoChatUser dto2 = new()
@@ -197,12 +220,15 @@ namespace ChatApp.Api.Controllers
             return StatusCode((int)result.StatusCode, new { message = "Failed to create channel" });                       
         }
 
+        
         [HttpPost("InsertUser")]
         public async Task<IActionResult> InsertUser(dtoChatUser dtochatuser)
         {
+            
             var s = _unitOfWork.ChatUsers.Find1(b => b.UserId == dtochatuser.UserId & b.ChatId == dtochatuser.ChatId);
             var currentChat = _unitOfWork.Chats.Find1(b => b.ChatId == dtochatuser.ChatId , new[] {"chatUsers"});
-            
+
+            //checking if the user hadn't inserted already --and-- the chat is able to be joined by this user
             if(s == null & (currentChat.chatUsers.IsNullOrEmpty() || currentChat.MaxUsers > currentChat.chatUsers.Count()))
             {
                 ChatUser chatuser = new()
@@ -260,21 +286,22 @@ namespace ChatApp.Api.Controllers
         [HttpPost("send-message")]
         public async Task<IActionResult> SendMessage(dtoMessage dtomessage)
         {
+            var thisid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var chat = _unitOfWork.Chats.GetById(dtomessage.ChatId);
             if (chat == null)
                 return BadRequest(new { message = "ChatId is invalid" });
 
-
+            //checking if the user is amember in this chat
             var senderChat = _unitOfWork.ChatUsers.Find1(b =>
                 b.ChatId == dtomessage.ChatId &
-                b.UserId == dtomessage.SenderId);
+                b.UserId == thisid);
             if (senderChat == null)
                 return BadRequest(new { message = "you can't send messages at this chat" });
 
             Message message = new()
             {
                 ChatId = dtomessage.ChatId,
-                SenderId = dtomessage.SenderId,
+                SenderId = thisid,
                 Content = dtomessage.Content
             };
             await _unitOfWork.Messages.InsertAsync(message);
@@ -288,7 +315,7 @@ namespace ChatApp.Api.Controllers
             var result = await _pusher.TriggerAsync(
                 $"chat-{message.ChatId}", // قناة المحادثة
                 "new-message",            // اسم الحدث
-                new { message = message.Content, sender = message.SenderId }
+                new { message = message.Content, sender = thisid }
             );
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)

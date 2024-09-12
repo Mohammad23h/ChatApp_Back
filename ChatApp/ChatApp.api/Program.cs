@@ -1,3 +1,4 @@
+using ChatApp.Api.Extentions;
 using ChatApp.Core.Interfaces;
 using ChatApp.Core.Models;
 using ChatApp.EF;
@@ -23,7 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenJwtAuth();
 
 var pusherOptions = new PusherOptions
 {
@@ -39,7 +40,7 @@ var pusher = new Pusher(
 );
 
     builder.Services.AddSingleton(pusher);
-    
+    builder.Services.AddCustomJwtAuth(builder.Configuration);
 
 
 

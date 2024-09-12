@@ -13,9 +13,6 @@ namespace ChatApp.Core.Models.DTOs
         [Required]
         public int ChatId { get; set; }
 
-        [Required]
-        public string SenderId { get; set; }
-
         [Required,AllowNull]
         public string Content { get; set; }
     }

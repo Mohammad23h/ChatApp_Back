@@ -39,12 +39,21 @@ var pusher = new Pusher(
     pusherOptions
 );
 
-    builder.Services.AddSingleton(pusher);
-    builder.Services.AddCustomJwtAuth(builder.Configuration);
+builder.Services.AddSingleton(pusher);
+builder.Services.AddCustomJwtAuth(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+      builder =>
+      {
+          builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader();
+      });
+});
 
-
-    var app = builder.Build();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -55,7 +64,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AllowAllOrigins"); // Use CORS policy here
 
 app.MapControllers();
 

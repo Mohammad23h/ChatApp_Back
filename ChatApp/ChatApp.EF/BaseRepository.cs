@@ -19,14 +19,17 @@ namespace ChatApp.EF
             _context = context;
         }
 
-        public IEnumerable<T> GetAll(string[] includes = null)
+        public IEnumerable<T> GetAll(string[]? includes = null)
         {
             return _context.Set<T>().ToList();
         }
 
-        public T GetById(int id, string[] includes = null)
+        public T GetById(int id, string[]? includes = null)
         {
-            return _context.Set<T>().Find(id);
+            var entity = _context.Set<T>().Find(id);
+            if (entity == null)
+                throw new Exception("There aren't any entity at this id");
+            return entity;
 
 
 
@@ -34,10 +37,13 @@ namespace ChatApp.EF
         }
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            var entity = await _context.Set<T>().FindAsync(id);
+            if (entity == null)
+                throw new Exception("this is no entity has this id");
+            return entity;
         }
 
-        public T Find(Expression<Func<T, bool>> match, string[] includes = null)
+        public T Find(Expression<Func<T, bool>> match, string[]? includes = null)
         {
             /*
             IQueryable<T> query = _context.Set<T>();
@@ -55,14 +61,24 @@ namespace ChatApp.EF
                         int index = include.IndexOf(">");
                         if (index != -1)
                         {
-                            string word1 = include.Substring(0, index);
-                            string word2 = include.Substring(++index);
-                            Console.WriteLine(word1);
-                            Console.WriteLine(word2);
-                            query = query.AsQueryable()
-                                .Include($"{word1}")
-                                .Include($"{word1}.{word2}");
 
+                        ///*
+                        //    string word1 = include.Substring(0, index);
+                        //    string word2 = include.Substring(++index);
+                        //    Console.WriteLine(word1);
+                        //    Console.WriteLine(word2);
+                        //    query = query.AsQueryable()
+                        //        .Include($"{word1}")
+                        //        .Include($"{word1}.{word2}");
+                        //*/
+                            string[] word = eagers(include);
+                            int i = 0;
+                            while (word[i] != null)
+                            {
+                                Console.WriteLine(word[i]);
+                                query = query.Include(word[i]);
+                            i++;
+                            }
                         }
                         else
                         {
@@ -72,19 +88,25 @@ namespace ChatApp.EF
 
                     }
 
-            return query.FirstOrDefault(match);
+            var entity = query.FirstOrDefault(match);
+            if (entity == null)
+                throw new Exception("this is no entity has this expression");
+            return entity;
         }
 
-        public T Find1(Expression<Func<T, bool>> match, string[] includes = null)
+        public T Find1(Expression<Func<T, bool>> match, string[]? includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
             if (includes != null)
                 foreach (var include in includes)
                     query = query.Include(include);
-            return query.FirstOrDefault(match);
+            var entity = query.FirstOrDefault(match);
+            if (entity == null)
+                throw new Exception("this is no entity has this expression");
+            return entity;
         }
 
-        public T FindLast(Expression<Func<T, int>> match, string[] includes = null)
+        public T FindLast(Expression<Func<T, int>> match, string[]? includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
             if (includes != null)
@@ -92,7 +114,7 @@ namespace ChatApp.EF
                     query = query.Include(include);
             return query.OrderBy(match).Last();
         }
-        public IEnumerable<T> FindAll(Expression<Func<T, bool>> match, string[] includes = null)
+        public IEnumerable<T> FindAll(Expression<Func<T, bool>> match, string[]? includes = null)
         {
             
             IQueryable<T> query = _context.Set<T>().Where(match);
@@ -124,7 +146,7 @@ namespace ChatApp.EF
             return query;
         }
 
-        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match, string[] includes = null)
+        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match, string[]? includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
             if (includes != null)
@@ -133,7 +155,7 @@ namespace ChatApp.EF
                         query = query.Include(include);
             return query.Where(match);
         }
-        public IEnumerable<T> FindAllAL(Expression<Func<T, bool>> match, string[] includes = null)// find all after doing eager loading
+        public IEnumerable<T> FindAllAL(Expression<Func<T, bool>> match, string[]? includes = null)// find all after doing eager loading
         {
 
             IQueryable<T> query = _context.Set<T>();
@@ -144,7 +166,7 @@ namespace ChatApp.EF
             return query.Where(match);
         }
 
-        public IEnumerable<T> IncludeAll(IEnumerable<T> query,string[] includes = null)
+        public IEnumerable<T> IncludeAll(IEnumerable<T> query,string[]? includes = null)
         {
             IQueryable<T> newQuery = query.AsQueryable();
             if (includes != null)
@@ -152,7 +174,7 @@ namespace ChatApp.EF
                     newQuery = newQuery.Include(include);
             return newQuery;
         }
-        public T IncludeOne(T entity, string[] includes = null)
+        public T IncludeOne(T entity, string[]? includes = null)
         {
             var list = new List<T>();
             list.Add(entity);
@@ -211,5 +233,40 @@ namespace ChatApp.EF
         public abstract T GetByIdWith(int id);
 
         public abstract T GetByIdWith(int id, string[] includes);
+
+
+        private string[] eagers(string x)
+        {
+            //string x = Console.ReadLine();
+            int index = x.IndexOf(">");
+            string[] word = new string[10];
+            string[] sum = new string[10];
+            int i = 0;
+            while (index != -1)
+            {
+                word[i] = x.Substring(0, index);
+                i++;
+                x = x.Substring(++index);
+                index = x.IndexOf(">");
+            }
+            word[i] = x;
+            Console.WriteLine(word[0]);
+            sum[0] = word[0];
+            for (int j = 1; j < word.Length; j++)
+            {
+                if (word[j] == null)
+                    break;
+                Console.WriteLine(word[j]);
+                sum[j] = sum[j - 1] + "." + word[j];
+            }
+            Console.WriteLine();
+            for (int z = 0; z < sum.Length; z++)
+            {
+                if (sum[z] == null)
+                    break;
+                Console.WriteLine($"sum[{z}] = " + sum[z]);
+            }
+            return sum;
+        }
     }
 }

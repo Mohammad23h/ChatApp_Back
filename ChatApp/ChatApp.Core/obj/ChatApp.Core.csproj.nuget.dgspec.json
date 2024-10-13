@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {}
+    "C:\\Users\\mhammad\\Desktop\\ASP.NET\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {
+    "C:\\Users\\mhammad\\Desktop\\ASP.NET\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
+        "projectUniqueName": "C:\\Users\\mhammad\\Desktop\\ASP.NET\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
         "projectName": "ChatApp.Core",
-        "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
+        "projectPath": "C:\\Users\\mhammad\\Desktop\\ASP.NET\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
         "packagesPath": "C:\\Users\\mhammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\obj\\",
+        "outputPath": "C:\\Users\\mhammad\\Desktop\\ASP.NET\\ChatApp\\ChatApp.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mhammad\\AppData\\Roaming\\NuGet\\NuGet.Config",

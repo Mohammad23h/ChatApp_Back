@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj": {}
+    "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj": {
+    "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
+        "projectUniqueName": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
         "projectName": "ChatApp.Api",
-        "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
+        "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
         "packagesPath": "C:\\Users\\mhammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\obj\\",
+        "outputPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mhammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,8 +29,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj": {
-                "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj"
+              "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj": {
+                "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj"
               }
             }
           }
@@ -92,14 +92,14 @@
         }
       }
     },
-    "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {
+    "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
+        "projectUniqueName": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
         "projectName": "ChatApp.Core",
-        "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
+        "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj",
         "packagesPath": "C:\\Users\\mhammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\obj\\",
+        "outputPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mhammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -159,14 +159,14 @@
         }
       }
     },
-    "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj": {
+    "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj",
+        "projectUniqueName": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj",
         "projectName": "ChatApp.EF",
-        "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj",
+        "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj",
         "packagesPath": "C:\\Users\\mhammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\obj\\",
+        "outputPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mhammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -184,8 +184,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {
-                "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj"
+              "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj": {
+                "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.Core\\ChatApp.Core.csproj"
               }
             }
           }
@@ -222,6 +222,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.json": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

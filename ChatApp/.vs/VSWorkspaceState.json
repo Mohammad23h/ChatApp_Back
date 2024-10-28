@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ChatApp.Core",
+    "\\ChatApp.Core\\Models",
+    "\\ChatApp.Core\\Models\\DTOs"
+  ],
+  "SelectedNode": "\\ChatApp.Core\\Models\\DTOs\\dtoMessage.cs",
+  "PreviewInSolutionExplorer": false
+}

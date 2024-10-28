@@ -24,9 +24,7 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
             IConfigurationRoot root = configuration.Build();*/
             //IConfigurationRoot configuration = builder.Build();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-
             optionsBuilder.UseSqlServer(connectionString);
-
             return new ApplicationDbContext(optionsBuilder.Options);
     }
 }

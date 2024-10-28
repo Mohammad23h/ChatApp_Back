@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cnPdqDfxqUY=",
+  "dgSpecHash": "wtQywX7b5jU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\mhammad\\Desktop\\ASP.NET\\ChatApp\\chatapp.ef\\ChatApp.EF.csproj",
+  "projectFilePath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mhammad\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\mhammad\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

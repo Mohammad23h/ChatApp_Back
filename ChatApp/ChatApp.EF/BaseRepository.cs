@@ -1,5 +1,6 @@
 ﻿using ChatApp.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,20 @@ namespace ChatApp.EF
         {
             return _context.Set<T>().ToList();
         }
-
+        public IEnumerable<T> GetAllLast(string[] includes = null, int count = 30)
+        {
+            return _context.Set<T>().TakeLast(count).ToList();
+        }
+        public IEnumerable<T> FindAllLast(Expression<Func<T, bool>> match, Expression<Func<T, int>> order, int count = 30, string[] includes = null)
+        {
+            return _context.Set<T>().Where(match).OrderBy(order).TakeLast(count).ToList();
+        }
+        
+        public IEnumerable<T> FindAllRange(Expression<Func<T, bool>> match, Expression<Func<T, int>> order, int countskip, int count = 30, string[] includes = null)
+        {
+            
+            return _context.Set<T>().Where(match).OrderBy(order).TakeLast(count+countskip).SkipLast(countskip).ToList();
+        }
         public T GetById(int id, string[]? includes = null)
         {
             var entity = _context.Set<T>().Find(id);

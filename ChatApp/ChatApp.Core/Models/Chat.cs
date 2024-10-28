@@ -14,6 +14,7 @@ namespace ChatApp.Core.Models
         public int ChatId { get; set; }
         [Required]
         public int MaxUsers { get; set; } = 2;
+        
 
         [JsonIgnore]
         public ICollection<Message> messages { get; set; }

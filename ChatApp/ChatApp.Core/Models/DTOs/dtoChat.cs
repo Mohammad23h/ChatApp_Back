@@ -12,7 +12,10 @@ namespace ChatApp.Core.Models.DTOs
     {
         [Required]
         public int MaxUsers { get; set; } = 2;
+        
         [AllowNull]
         public string UserId { get; set; } = null;
+        
+        
     }
 }

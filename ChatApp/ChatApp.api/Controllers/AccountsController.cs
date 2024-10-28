@@ -97,10 +97,10 @@ namespace ChatApp.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await _userManager.FindByNameAsync(Login.username);
+                AppUser user = await _userManager.FindByNameAsync(Login.UserName);
                 if (user != null)
                 {
-                    if (await _userManager.CheckPasswordAsync(user, Login.password))
+                    if (await _userManager.CheckPasswordAsync(user, Login.Password))
                     {
                         var claims = new List<Claim>();
                         claims.Add(new Claim(ClaimTypes.Name, user.UserName));

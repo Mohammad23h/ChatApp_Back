@@ -4873,11 +4873,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
+      "projectUniqueName": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
       "projectName": "ChatApp.Api",
-      "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
+      "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\ChatApp.Api.csproj",
       "packagesPath": "C:\\Users\\mhammad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.api\\obj\\",
+      "outputPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mhammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4895,8 +4895,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj": {
-              "projectPath": "C:\\Users\\mhammad\\Desktop\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj"
+            "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj": {
+              "projectPath": "C:\\Users\\mhammad\\source\\repos\\ChatApp_Back\\ChatApp\\ChatApp.EF\\ChatApp.EF.csproj"
             }
           }
         }
@@ -4957,5 +4957,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
 }

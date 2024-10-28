@@ -15,11 +15,15 @@ namespace ChatApp.Core.Interfaces
         T GetByIdWith(int id, string[] includes);
         Task<T> GetByIdAsync(int id);
         IEnumerable<T> GetAll(string[] includes = null);
+        IEnumerable<T> GetAllLast(string[] includes = null,int count = 30);
         T Find(Expression<Func<T, bool>> match, string[] includes = null);
         T Find1(Expression<Func<T, bool>> match, string[] includes = null);
         T FindLast(Expression<Func<T, int>> match, string[] includes = null);
 
         IEnumerable<T> FindAll(Expression<Func<T, bool>> match, string[] includes = null);
+
+        IEnumerable<T> FindAllLast(Expression<Func<T, bool>> match, Expression<Func<T, int>> order, int count = 30, string[] includes = null);
+        IEnumerable<T> FindAllRange(Expression<Func<T, bool>> match, Expression<Func<T, int>> order, int countskip, int count = 30, string[] includes = null);
         IEnumerable<T> FindAllAL(Expression<Func<T, bool>> match, string[] includes = null);
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match, string[] includes = null);
         T Update(T entity);

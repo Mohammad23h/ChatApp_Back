@@ -49,7 +49,7 @@ namespace ChatApp.Api.Controllers
         }
 
 
-        [HttpGet("MessagesOfChat/{id}")]
+        [HttpGet("{id}/AllMessages")]
         public async Task<IActionResult> GetMessages(int id)
         {
             try
@@ -65,14 +65,69 @@ namespace ChatApp.Api.Controllers
                 }
                 Console.WriteLine("messages isn't null here");
                 return Ok(thismessages);
-        }
+            }
             catch(Exception e1)
             {
-                Console.WriteLine($"exeption is {e1}");
-                return BadRequest(new { message = "ther are an exeption" });
+                Console.WriteLine($"exeption is {e1.StackTrace}");
+                return BadRequest(new { message = "there aren't any message in this chat" });
             }
             
         }
+
+        [HttpGet("{id}/LastMessages")]
+        public async Task<IActionResult> GetLastMessages(int id)
+        {
+            try
+            {
+                Console.WriteLine("Starting Fetching messages");
+                var thismessages =  _unitOfWork.Messages.FindAllLast(b => b.ChatId == id,c => c.ChatId);
+                Console.WriteLine("Messages Fetched Successfully");
+                Console.WriteLine("messages count is " + thismessages.Count());
+                /*
+                if (thismessages == null)
+                {
+                    Console.WriteLine("messages is null");
+                    return BadRequest(new { message = "there aren't any message here" });
+                }
+                */
+                return Ok(thismessages);
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine($"exeption is {e1.StackTrace}");
+                return BadRequest(new { message = "there aren't any message in this chat" });
+            }
+
+        }
+
+
+        [HttpGet("{id}/LastMessages/{current}")]
+        public async Task<IActionResult> GetLastMessages(int id, int current) //current = the count of the current messages that disable in the chat
+        {
+            try
+            {
+                Console.WriteLine("Starting Fetching messages");
+                var thismessages = _unitOfWork.Messages.FindAllRange(b => b.ChatId == id, c => c.ChatId , current);
+                Console.WriteLine("Messages Fetched Successfully");
+                Console.WriteLine("messages count is " + thismessages.Count());
+                /*
+                if (thismessages == null)
+                {
+                    Console.WriteLine("messages is null");
+                    return BadRequest(new { message = "there aren't any message here" });
+                }
+                */
+                return Ok(thismessages);
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine($"exeption is {e1.StackTrace}");
+                return BadRequest(new { message = "there is a problem that occurd at fetching the messages" });
+            }
+
+        }
+
+
         [Authorize]
         [HttpPost("InsertMessage")]
         public async Task<IActionResult> InsertMessage(dtoMessage dtomessage)
@@ -164,19 +219,22 @@ namespace ChatApp.Api.Controllers
         public async Task<IActionResult> Insert(dtoChat dtochat)
         {
             var thisid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int idchat = _unitOfWork.Chats.FindLast(b => b.ChatId).ChatId + 1;
             Chat chat = new()
             {
+                ChatId = idchat,
                 MaxUsers = dtochat.MaxUsers
             }; 
             var thischat = await _unitOfWork.Chats.InsertAsync(chat);
             
             var c = _unitOfWork.Complete();
             if (c == 0)
-                return BadRequest(new { message = " the insert function has been failed" });           
+                return BadRequest(new { message = " the insert function has been failed" });
 
             dtoChatUser dto1 = new()
             {
-                ChatId = thischat.ChatId,
+                //ChatId = thischat.ChatId,
+                ChatId = idchat,
                 UserId = thisid
             };
             var result1 = await InsertUser(dto1);
@@ -186,14 +244,15 @@ namespace ChatApp.Api.Controllers
             {
                 dtoChatUser dto2 = new()
                 {
-                    ChatId = thischat.ChatId,
+                    //ChatId = thischat.ChatId,
+                    ChatId = idchat,
                     UserId = dtochat.UserId
                 };
                 var result2 = await InsertUser(dto2);
             }
             _unitOfWork.Complete();
-            
-            
+
+
             // تحقق من أن chatId صالح وتحقق من وجود المحادثة
             // هنا يمكنك التحقق من قاعدة البيانات إذا كانت المحادثة موجودة
             // على سبيل المثال:
@@ -201,9 +260,11 @@ namespace ChatApp.Api.Controllers
             // if (chat == null) return NotFound();
 
             // إعداد قناة جديدة للمحادثة باستخدام ChatId
-            
+
             //var thischat = _unitOfWork.Chats.FindLast(b =>b.ChatId);
-            string channelName = $"chat-{thischat.ChatId}";
+            //string channelName = $"chat-{thischat.ChatId}";
+            string channelName = $"chat-{idchat}";
+
 
             // إرسال إشعار أو حدث عند إنشاء القناة إذا لزم الأمر
             var result = await _pusher.TriggerAsync(

@@ -107,7 +107,7 @@ namespace ChatApp.EF.Migrations
 
                     b.HasKey("ChatId");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chats", (string)null);
                 });
 
             modelBuilder.Entity("ChatApp.Core.Models.ChatUser", b =>
@@ -131,7 +131,7 @@ namespace ChatApp.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("chatUsers");
+                    b.ToTable("chatUsers", (string)null);
                 });
 
             modelBuilder.Entity("ChatApp.Core.Models.Message", b =>
@@ -162,7 +162,7 @@ namespace ChatApp.EF.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

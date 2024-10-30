@@ -140,6 +140,11 @@ namespace ChatApp.Api.Controllers
             }
             return BadRequest(ModelState);
         }
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(_userManager.Users.ToList());
+        }
 
     }
 }

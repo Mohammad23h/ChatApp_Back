@@ -30,13 +30,18 @@ namespace ChatApp.EF
         }
         public IEnumerable<T> FindAllLast(Expression<Func<T, bool>> match, Expression<Func<T, int>> order, int count = 30, string[] includes = null)
         {
-            return _context.Set<T>().Where(match).OrderBy(order).TakeLast(count).ToList();
+            var query = _context.Set<T>().Where(match);
+            if (query.Count() > count)
+                return query.OrderBy(order).ToList().TakeLast(count);
+            return query.ToList();
         }
         
         public IEnumerable<T> FindAllRange(Expression<Func<T, bool>> match, Expression<Func<T, int>> order, int countskip, int count = 30, string[] includes = null)
         {
-            
-            return _context.Set<T>().Where(match).OrderBy(order).TakeLast(count+countskip).SkipLast(countskip).ToList();
+            var query = _context.Set<T>().Where(match);
+            if (query.Count() > countskip + count)
+                return query.OrderBy(order).ToList().TakeLast(count+countskip).SkipLast(countskip);
+            return query.ToList().SkipLast(countskip);
         }
         public T GetById(int id, string[]? includes = null)
         {

@@ -91,11 +91,11 @@ namespace ChatApp.Api.Controllers
                 }
                 */
                 return Ok(thismessages);
-            }
+        }
             catch (Exception e1)
             {
                 Console.WriteLine($"exeption is {e1.StackTrace}");
-                return BadRequest(new { message = "there aren't any message in this chat" });
+                return BadRequest(new { message = "there are an exeption" });
             }
 
         }
